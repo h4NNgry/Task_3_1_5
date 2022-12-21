@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,10 +21,10 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @ManyToMany(cascade=CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
+            inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private List<Role> roles;
 
     public User() {
@@ -75,6 +77,13 @@ public class User {
         this.roles = roles;
     }
 
+    public String getRolesToString() {
+        StringBuilder sb = new StringBuilder();
+        for (Role role : roles) {
+            sb.append(role).append(" ");
+        }
+        return sb.toString().replace("ROLE_", "");
+    }
     @Override
     public String toString() {
         return "User{" +

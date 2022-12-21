@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.demo.services.UserServiceImpl;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
-
+@RequestMapping("/admin")
+public class AdminController {
     private final UserServiceImpl userServiceImpl;
+
     @Autowired
-    public UserController(UserServiceImpl userServiceImpl) {
+    public AdminController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
     }
 
     @GetMapping()
-    public String getUser() {
+    public String listUsers() {
 
-        return "user";
+        return "admin";
     }
 }
